@@ -28,7 +28,6 @@ df = pd.DataFrame(data,columns = head)
 col = ['始値','高値','安値','終値','出来高','終値調整']
 for c in col:
     df[c] = df[c].astype(float)
-df['日付'] = [datetime.strptime(i,'%Y-%m-%d') for i in df['日付']]
 
 ## テクニカル指標の取得
 date = df['日付']
@@ -38,10 +37,10 @@ sma25 = talib.SMA(close,timeperiod=25)
 sma75 = talib.SMA(close,timeperiod=75)
 stochRSI_k, stochRSI_d = talib.STOCHRSI(close,timeperiod=14,fastk_period=5,fastd_period=3,fastd_matype=0)
 
-m25 = sma25.values[-1]
-m75 = sma75.values[-1]
-sk = stochRSI_k.values[-1]
-sd = stochRSI_d.values[-1]
+m25 = sma25.values[0]
+m75 = sma75.values[0]
+sk = stochRSI_k.values[0]
+sd = stochRSI_d.values[0]
 ratio = m25/m75
 
 if ratio > 1.02 and sd <20:
